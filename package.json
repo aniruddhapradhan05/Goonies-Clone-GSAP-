@@ -1,0 +1,15 @@
+{
+  "name": "animation-gsap",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass --no-source-map ./src/style.scss ./dist/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.86.0"
+  }
+}

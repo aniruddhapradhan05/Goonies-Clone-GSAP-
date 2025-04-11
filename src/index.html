@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The story of Groonies</title>
+    <link rel="stylesheet" href="../dist/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="https://unpkg.com/wavesurfer.js@7"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"
+      integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"
+      integrity="sha512-AcqPGqrrAEtEwe+ADO5R8RbdFi7tuU7b/A2cJJH0Im0D18NRk5p5s4B3E5PMuO81KFw0ClN7J5SHVUJz7KOb0A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollToPlugin.min.js"
+      integrity="sha512-uLq4Xf3PvaO+NTghyBWeh43DxozRnHMM2vcwlxY+KVc7xv2PMLimAerptg7AbrdN2qZjAwExwV/IqGm4YQBPww=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script defer src="./script.js"></script>
+  </head>
+
+  <body>
+    <div class="outerwrapper">
+      <div class="preloader">
+        <div class="preloader__overlay"></div>
+        <p class="preloader__percentage">100%</p>
+        <p class="preloader__loading">Loading</p>
+        <div class="preloader__dot"></div>
+      </div>
+
+      <header class="header">
+        <nav>
+          <ul class="header__navlinks">
+            <li><a href="#plot">Plot</a></li>
+            <li><a href="#gooniespage">Goonies</a></li>
+            <li><a href="#credits">Credits</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+        <div class="header__dot">
+          <div class="header__dot--ball"></div>
+        </div>
+      </header>
+      <aside class="sideoftheday">
+        <h5 class="sideoftheday__title">Site of the day</h5>
+        <div class="sideoftheday__w">
+          <h2>W</h2>
+          <h2>.</h2>
+        </div>
+      </aside>
+      <div class="sound">
+        <img
+          class="sound__play--btn"
+          src="./images/pause.svg"
+          alt="pause button"
+        />
+        <div class="sound__artist">
+          <a
+            class="sound__artist--a"
+            href="https://soundcloud.com/josephberry1988"
+            >Joseph Berry</a
+          >
+          <h5>TheGoonies T...</h5>
+        </div>
+        <img
+          class="sound__soundcloud"
+          src="./images/soundcloudLogo.svg"
+          alt="soundcloud logo"
+        />
+        <div id="waveform" class="waveform"></div>
+        <a class="sound__privacy" href="https://soundcloud.com/josephberry1988"
+          >Privacy policy</a
+        >
+        <div></div>
+        <div class="sound__plays">
+          <img
+            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCAxNiAxNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+DQogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCAzLjAuMyAoNzg5MSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+DQogICAgPHRpdGxlPnN0YXRzX3BsYXkgNDwvdGl0bGU+DQogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+DQogICAgPGRlZnMvPg0KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPg0KICAgICAgICA8ZyBpZD0ic3RhdHNfcGxheS0iIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIGZpbGw9InJnYigxNTMsIDE1MywgMTUzKSI+DQogICAgICAgICAgICA8cGF0aCBkPSJNNCwxMyBMNCwzIEwxMyw4IEw0LDEzIFoiIGlkPSJzdGF0c19wbGF5LTMiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiLz4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg0K"
+            alt="play logo"
+          />
+          <p>111K</p>
+        </div>
+      </div>
+      <div class="music__sound">
+        <img
+          class="music__sound--icon"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d10efb50442bf42883dc80d_speaker-icon.png"
+          alt="sound icon"
+        />
+      </div>
+      <div class="sidemap">
+        <img
+          class="sidemap__image"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d1d176d53ced33e91dc377c_map-min-1.png"
+          alt="map image"
+        />
+        <button class="sidemap__cross--button">
+          <p class="sidemap__cross--button--p">⨯</p>
+        </button>
+      </div>
+      <div class="openmap">
+        <img
+          class="openmap__icon"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d1ccf5390704ad21f992d8e_skull.png"
+          alt="openmap icon"
+        />
+      </div>
+      <div class="mapcircle"></div>
+
+      <div id="emptydiv"></div>
+      <div class="wrapper">
+        <section id="homepage" class="homepage">
+          <img
+            class="homepage__tree"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d13364599bb70e3560cc4e5_background-min%203.png"
+            alt="Trees background"
+          />
+          <img
+            class="homepage__mountain"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5cffeaf7b3cb0ed2d33f7943_hero.jpg"
+            alt="mountains background"
+          />
+          <img
+            class="homepage__mouse"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d00043816a6c695bcf1581a_scroll.gif"
+            alt="mouse"
+          />
+
+          <div class="homepage__main">
+            <h5 class="homepage__main--story">The Story of</h5>
+            <img
+              class="homepage__main--logo"
+              src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5cffeb65d43eb732944316c4_logo.png"
+              alt="The gonnies logo"
+            />
+          </div>
+
+          <div id="homepage__plot" class="homepage__plot">
+            <h2 class="homepage__plot--title">PLOT</h2>
+            <p class="homepage__plot--desc">
+              Facing foreclosure of their homes in the Goon Docks area of
+              Astoria, Oregon to an expanding country club, a group of children
+              who call themselves "the Goonies" gather for a final weekend
+              together.
+            </p>
+            <div class="homepage__plot--drawline"></div>
+          </div>
+        </section>
+      </div>
+
+      <section id="gooniespage" class="gooniespage">
+        <div class="gooniespage__mikey">
+          <div class="overlay overlay-one"></div>
+          <img
+            class="gooniespage__mikey--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d000a3b16a6c64e19f1841b_1.jpg"
+            alt="mikey image"
+          />
+          <div class="gooniespage__desc gooniespage__mikey--desc">
+            <h3>Mikey</h3>
+            <button>
+              More Info
+              <img src="./images/rightArrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+        <div class="gooniespage__video gooniespage__mikeyvideo">
+          <video
+            class="mikey__bg--video"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d02af2ae618811d9e5cac91_The%20Goonies%E2%80%94Brand%20gets%20tied%20to%20a%20chairhas%20the%20air%20let%20out%20of%20his%20tires-transcode.mp4"
+            type="video/mp4"
+            aria-label="mickey background label"
+          ></video>
+          <div class="gooniespage__video--details">
+            <img
+              src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d000a3b16a6c64e19f1841b_1.jpg"
+              alt="mikey image"
+            />
+            <h3>Mikey</h3>
+            <h5>
+              When Mikey was younger, his father used to tell him various
+              stories of grand adventure, including the story of One-Eyed Willy.
+            </h5>
+            <p>
+              Facing foreclosure of their homes in the Goon Docks area of
+              Astoria, Oregon to an expanding country club, a group of children
+              who call themselves "the Goonies" gather for a final weekend
+              together.
+            </p>
+          </div>
+          <button class="closevideo mikey__closevideo">close video</button>
+        </div>
+
+        <div class="gooniespage__chunk">
+          <div class="overlay overlay-two"></div>
+          <img
+            class="gooniespage__chunk--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d000a3b7c779fffb58ff3ed_2.jpg"
+            alt="chunk image"
+          />
+          <div class="gooniespage__desc gooniespage__chunk--desc">
+            <h3>Chunk</h3>
+            <button>
+              More Info
+              <img src="./images/rightArrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+        <div class="gooniespage__video gooniespage__chunkvideo">
+          <video
+            class="chunk__bg--video"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d05918fe1a86872f1a03911_4-transcode.mp4"
+            type="video/mp4"
+            aria-label="chunk background label"
+          ></video>
+          <div class="gooniespage__video--details">
+            <img
+              src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d000a3b7c779fffb58ff3ed_2.jpg"
+              alt="chunk image"
+            />
+            <h3>Chunk</h3>
+            <h5>
+              Chunk has previously prank called the Sheriff, claiming multiple
+              outlandish stories and getting himself into a lot of trouble. He's
+              also caused a lot of trouble around town, pulling pranks and
+              causing general mischief with the people of Astoria.
+            </h5>
+            <p>
+              He is the only member of the Goonies to see the car chase between
+              the police and the Fratellis. Chunk excitedly hurries to the Walsh
+              residence to tell his friends about the chase, but nobody believes
+              him. Mouth makes him perform the Truffle Shuffle before he can
+              enter the house proper. Inside, he breaks a statue in the living
+              room, and is tricked into breaking a glass case in the attic. With
+              it broken, he and Mikey notice a map inside. Determined to find
+              the treasure it mentions to save his home, Chunk accompanies the
+              other Goonies out on a bike ride, mostly complaining the whole
+              time about food and the dark.
+            </p>
+          </div>
+          <button class="closevideo chunk__closevideo">close video</button>
+        </div>
+
+        <div class="gooniespage__data">
+          <div class="overlay overlay-three"></div>
+          <img
+            class="gooniespage__data--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d4029b7763f97bdb3dec2f7_jno507n0iz131.jpg"
+            alt="data image"
+          />
+          <div class="gooniespage__desc gooniespage__data--desc">
+            <h3>Data</h3>
+            <button>
+              More Info
+              <img src="./images/rightArrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+        <div class="gooniespage__video gooniespage__datavideo">
+          <video
+            class="data__bg--video"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d058dcfe1a868bd88a033ed_3-transcode.mp4"
+            type="video/mp4"
+            aria-label="data background label"
+          ></video>
+          <div class="gooniespage__video--details">
+            <img
+              src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d4029b7763f97bdb3dec2f7_jno507n0iz131.jpg"
+              alt="data image"
+            />
+            <h3>Data</h3>
+            <h5>
+              Data and his family are preparing to move to Detroit, Michigan due
+              to the Goon Docks planned to be sold away to Mr. Perkins. He
+              spends the morning out, testing out an invention that reels things
+              close to him via suction cup. It backfires though, and instead
+              he's dragged headfirst into a trashcan, where he gets stuck and is
+              unable to notice the Fratellis and police zip past him.
+            </h5>
+            <p>
+              Later, he goes to hang out with his friends, ziplining from his
+              house to the Walsh residence, crashing through a screen door,
+              breaking it. He laments having to move and then apologizes about
+              breaking the door to Mrs. Walsh. Up in the attic, he adventures
+              around and explains how a static electricity ball works to Chunk.
+              He tags along with the others, helps subdue Brand to a sofa chair,
+              and rides off on his bike to Cannon Beach.
+            </p>
+          </div>
+          <button class="closevideo data__closevideo">close video</button>
+        </div>
+
+        <div class="gooniespage__mouth">
+          <div class="overlay overlay-four"></div>
+          <img
+            class="gooniespage__mouth--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d002392773f43b68a233649_4.jpg"
+            alt="mouth image"
+          />
+          <div class="gooniespage__desc gooniespage__mouth--desc">
+            <h3>Mouth</h3>
+            <button>
+              More Info
+              <img src="./images/rightArrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+        <div class="gooniespage__video gooniespage__mouthvideo">
+          <video
+            class="mouth__bg--video"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d24635d2758ae4bbc2fe2ae_y2matecom%20-%20the_goonies_mouths_jewels_w1Bop2N-1P8_360p-transcode.mp4"
+            type="video/mp4"
+            aria-label="mouth background label"
+          ></video>
+          <div class="gooniespage__video--details">
+            <img
+              src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d002392773f43b68a233649_4.jpg"
+              alt="mouth image"
+            />
+            <h3>Mouth</h3>
+            <h5>
+              The day before the Goon Docks are to be demolished by Mr. Perkins,
+              Mouth makes one last visit to Mikey's house. After therest of his
+              friends arrive, they hang out; he offers to help Mikey's mother
+              with translating for Rosalita, a maid she hired to help with the
+              move.
+            </h5>
+            <p>
+              He purposely mistranslates to scare Rosalita, tricking her into
+              thinking the family is abusive and crazy.Once she and Mrs. Walsh
+              leave, Mouth goes with his friends to the attic, where he explores
+              around and leafs through Irving Walsh's pirate memorabilia. After
+              making bad jokes with things laying around, he gathers around a
+              map Mikey discovered. Mouth doesn't seem to believe Mikey's
+              stories about One-Eyed Willy's treasure, until after Mr. Perkins
+              drops by to ask about Mikey's dad signing away the house. With a
+              plan set in place, Mouth helps trap Brand to his seat and rides
+              off on a bike, but not before flattening Brand's bike tires.
+            </p>
+          </div>
+          <button class="closevideo mouth__closevideo">close video</button>
+        </div>
+      </section>
+
+      <section class="gooniescoins">
+        <h1 class="gooniescoins__title">Goonies Never Say Die</h1>
+        <img
+          class="gooniescoins__stone"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25c68703e41086eb3b2da1_key-min.png"
+          alt="big stone"
+        />
+        <img
+          class="gooniescoins__coin--topleft"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25ce8103e41038cf3b4be7_coin-1.png"
+          alt="coin top left"
+        />
+        <img
+          class="gooniescoins__coin--bottomleft"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25ce8103e4105bd13b4be8_coin-3.png"
+          alt="coin bottom left"
+        />
+        <img
+          class="gooniescoins__coin--topright"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25cdda7dcddd7271ddc7da_coin.png"
+          alt="coin top right"
+        />
+        <img
+          class="gooniescoins__coin--bottomright"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25ce8103e41038cf3b4be7_coin-1.png"
+          alt="coin bottom right"
+        />
+      </section>
+
+      <section id="credits" class="credits">
+        <div class="credits__all credits__date">
+          <div class="credits__all--overflow">
+            <h2 class="credits__all--title credits__date--title">1985</h2>
+          </div>
+          <div class="credits__desc">
+            <h5>Release date</h5>
+            <p>June 7, 1985</p>
+          </div>
+        </div>
+        <div class="credits__all credits__story">
+          <div class="overlay overlay--story"></div>
+          <img
+            class="credits__all--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d23a6caf743d12a0b3b4c75_steven-min.jpg"
+            alt="Steven Spielberg"
+          />
+          <div class="credits__desc">
+            <h5>Story by</h5>
+            <p>Steven Spielberg</p>
+          </div>
+        </div>
+        <div class="credits__all credits__production">
+          <div class="overlay overlay--production"></div>
+          <img
+            class="credits__production--image"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d07ef8017bf61e4a0e439b1_sloth.png"
+            alt="cartoonish image"
+          />
+          <img class="empty__image" />
+          <div class="credits__desc">
+            <h5>Production</h5>
+            <p>Amblin Entertainment</p>
+          </div>
+        </div>
+        <div class="credits__all credits__distribution">
+          <img
+            class="credits__all--imagedist"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0803429c4398257ab505c0_logo.png"
+            alt="warner bros"
+          />
+          <div class="credits__desc">
+            <h5>Distrubuted by</h5>
+            <p>Warner Bros</p>
+          </div>
+        </div>
+        <div class="credits__all credits__budget">
+          <div class="credits__all--overflow">
+            <h2 class="credits__all--title credits__budget--title">$19M</h2>
+          </div>
+          <div class="credits__desc">
+            <h5>Budget</h5>
+            <p>$19 Million</p>
+          </div>
+        </div>
+        <div class="credits__all credits__music">
+          <div class="overlay overlay--music"></div>
+          <img
+            class="credits__all--imagemusic"
+            src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d08043c2f4d705660dc08e6_Dave%20Grusin.jpg"
+            alt="Dave Grusin"
+          />
+          <div class="credits__desc">
+            <h5>Music by</h5>
+            <p>Dave Grusin</p>
+          </div>
+        </div>
+        <div class="credits__all credits__boxoffice">
+          <div class="credits__all--overflow">
+            <h2 class="credits__all--title credits__boxoffice--title">$61M</h2>
+          </div>
+          <div class="credits__desc">
+            <h5>Box office</h5>
+            <p>$61 Million</p>
+          </div>
+        </div>
+      </section>
+      <section class="theater">
+        <img
+          class="theater__skull"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d1ccf5390704ad21f992d8e_skull.png"
+          alt="skull"
+        />
+        <img
+          class="theater__audience"
+          src="https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d25e8040574eeecaa75cbdd_last-part.png"
+          alt="audience"
+        />
+      </section>
+
+      <section id="gallery" class="gallery">
+        <div class="gallery__details">
+          <h5 class="gallery__details--title">Gallery</h5>
+          <button class="gallery__details--button">View Gallery</button>
+        </div>
+        <a class="gallery__share--button" href="">Share</a>
+        <button class="gallery__cross--button">
+          <p class="gallery__cross--button--p">⨯</p>
+        </button>
+        <div class="gallery__image gallery__one"></div>
+        <div class="gallery__image gallery__two"></div>
+        <div class="gallery__image gallery__three"></div>
+        <div class="gallery__image gallery__four"></div>
+        <div class="gallery__image gallery__five"></div>
+        <div class="gallery__image gallery__six"></div>
+        <div class="gallery__image gallery__seven"></div>
+        <div class="gallery__image gallery__eight"></div>
+        <div class="gallery__image gallery__nine"></div>
+        <div class="gallery__image gallery__ten"></div>
+        <div class="gallery__image gallery__eleven"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__drawline"></div>
+        <p class="footer__experience">Share this experience</p>
+        <h2 class="footer__title">the-goonies.webflow.io</h2>
+        <button class="footer__backtop--button">Back to top</button>
+        <p class="footer__author">Created By Aniruddha</p>
+      </footer>
+    </div>
+  </body>
+</html>

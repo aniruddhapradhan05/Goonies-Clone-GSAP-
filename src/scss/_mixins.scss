@@ -1,0 +1,25 @@
+@mixin flex-center(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin hw-full{
+    height: 100%;
+    width: 100%;
+}
+@mixin img-fit-cover{
+    @include hw-full;
+    object-fit: cover;
+}
+
+@mixin absolute-center($side){
+    position: absolute;
+    #{$side}: 50%;
+    transform: translateX(-50%);
+}
+@mixin relative-center($side){
+    position: relative;
+    #{$side}: 50%;
+    transform: translateX(-50%);
+}
+

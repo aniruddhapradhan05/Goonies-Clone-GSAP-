@@ -1,0 +1,877 @@
+@use "./scss/common" as *;
+@font-face {
+  font-family: "abuget";
+  src: url(../src/font/Abuget.ttf);
+}
+@font-face {
+  font-family: "grotesk";
+  src: url(../src/font/SharpGroteskBookRegular.ttf);
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins";
+  box-sizing: border-box;
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+}
+html,
+body {
+  @include hw-full;
+  @include flex-center;
+  background-color: $black;
+}
+.outerwrapper {
+  @include hw-full;
+  max-width: 1920px;
+  max-height: 1080px;
+  .preloader {
+    @include hw-full;
+    background-color: $grey-500;
+    position: fixed;
+    z-index: 5;
+    &__overlay {
+      background-color: $black;
+      @include hw-full;
+      position: absolute;
+      top: 100%;
+    }
+    &__percentage {
+      @include absolute-center(left);
+      top: 40%;
+      font-family: "grotesk";
+      color: $white;
+      font-size: $font-xxl;
+    }
+    &__loading {
+      @include absolute-center(left);
+      color: $white;
+      bottom: 20%;
+      font-family: "grotesk";
+    }
+    &__dot {
+      width: 0.35rem;
+      height: 0.35rem;
+      background-color: $white;
+      border-radius: 50%;
+      @include absolute-center(left);
+      bottom: 18%;
+    }
+  }
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    padding: 1rem;
+    &__navlinks {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+      padding-bottom: 0.3rem;
+      li {
+        list-style-type: none;
+
+        a {
+          text-decoration: none;
+          color: $white;
+          font-family: "grotesk";
+          font-size: $font-nm;
+        }
+      }
+    }
+    &__dot {
+      height: 1rem;
+      width: 100%;
+      position: relative;
+      &--ball {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background-color: $white;
+        position: absolute;
+        left: 12%;
+        opacity: 0;
+      }
+    }
+  }
+  & .sideoftheday {
+    background-color: $white;
+    cursor: pointer;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    top: 20%;
+    transform: rotate(-90deg);
+    transform-origin: right bottom;
+    right: 0%;
+    z-index: 3;
+    &__w {
+      display: flex;
+      transform: rotate(90deg);
+    }
+    padding: 0.8rem;
+    &__title {
+      align-content: center;
+      font-weight: 600;
+      font-size: $font-nm;
+    }
+  }
+  & .music {
+    &__sound {
+      position: fixed;
+      cursor: pointer;
+      z-index: 3;
+      bottom: 12%;
+      right: 5%;
+      padding: 0.5rem;
+      overflow: hidden;
+      &--icon {
+        width: 1rem;
+      }
+    }
+  }
+  & .sound {
+    width: 18.5rem;
+    height: 10rem;
+    background-color: $white-500;
+    z-index: 6;
+    position: fixed;
+    padding: 0.5rem;
+    bottom: 20%;
+    right: -100%;
+    border-radius: 0.3rem;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    text-align: center;
+    align-items: center;
+    &__play--btn {
+      cursor: pointer;
+      border-radius: 50%;
+      &:hover {
+        box-shadow: 0 0 0.5rem $black;
+      }
+    }
+    &__artist {
+      color: $grey;
+
+      &--a {
+        font-size: $font-nm;
+        color: $grey;
+
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+    & .waveform {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      width: 100%;
+      height: 2rem;
+      cursor: pointer;
+    }
+    &__soundcloud {
+      cursor: pointer;
+    }
+    &__privacy {
+      font-size: $font-sm;
+      text-decoration: none;
+      color: $black;
+    }
+    &__plays {
+      display: flex;
+      justify-content: center;
+      font-size: $font-nm;
+    }
+  }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    @include hw-full;
+    position: absolute;
+    z-index: 1;
+  }
+  .sidemap {
+    @include hw-full;
+    z-index: 99;
+    position: fixed;
+    left: -100%;
+    overflow: hidden;
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d1d171453ced37760dc31d9_map-bg-min%202.jpg");
+    &__image {
+      @include hw-full;
+      transform: scale(1.4);
+    }
+    &__cross--button {
+      background-color: $black;
+      width: 2.2rem;
+      height: 2.2rem;
+      align-content: center;
+      @include flex-center;
+      border: 0;
+      color: $white;
+      font-size: $font-lg;
+      position: absolute;
+      border-radius: 50%;
+      top: 10%;
+      right: 10%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
+  .openmap {
+    position: fixed;
+    cursor: pointer;
+    z-index: 3;
+    width: 2rem;
+    height: 2rem;
+    bottom: 12%;
+    left: 5%;
+    @include flex-center;
+    &__icon {
+      width: 0.8rem;
+    }
+  }
+  .mapcircle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 3;
+    width: 2rem;
+    height: 2rem;
+    opacity: 0;
+    border-radius: 50%;
+    border: 0.0625rem solid $white;
+    bottom: 12%;
+    left: 5%;
+  }
+}
+.wrapper {
+  @include hw-full;
+  min-height: 100vh;
+  background-color: $black;
+  .homepage {
+    @include hw-full;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    &__tree {
+      position: absolute;
+      @include hw-full;
+      top: 0;
+      z-index: -1;
+      transform: scale(1.4);
+    }
+
+    &__mountain {
+      position: absolute;
+      @include hw-full;
+      top: 0;
+      z-index: -2;
+    }
+
+    &__mouse {
+      width: 4%;
+      bottom: 5%;
+      @include absolute-center(left);
+    }
+
+    &__main {
+      @include flex-center;
+      flex-direction: column;
+      position: relative;
+      flex-grow: 1;
+      gap: 1rem;
+      color: $white;
+
+      &--story {
+        font-family: "abuget";
+        font-size: 2rem;
+      }
+
+      &--logo {
+        width: 30%;
+      }
+    }
+
+    &__plot {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      top: 40%;
+      left: 50%;
+      transform: translateY(-50%);
+      transform: translateX(-50%);
+
+      &--title {
+        font-family: "grotesk";
+        color: $white;
+        font-size: 2rem;
+      }
+
+      &--desc {
+        font-family: "Montserrat";
+        text-align: center;
+        color: $white;
+        font-weight: 500;
+      }
+
+      &--drawline {
+        width: 16rem;
+        height: 0.08rem;
+        transform: rotate(90deg);
+        left: 50%;
+        top: 5.5rem;
+        position: absolute;
+        transform-origin: left;
+        background-color: $white;
+      }
+    }
+  }
+}
+.gooniespage {
+  @include hw-full;
+  display: flex;
+  overflow: hidden;
+  @media (max-width: 479px) {
+    flex-direction: column;
+    height: 250%;
+  }
+
+  &__video {
+    @include hw-full;
+    z-index: 3;
+    & video {
+      @include hw-full;
+      object-fit: cover;
+    }
+    @media (max-width: 768px) {
+      display: none;
+    }
+    position: absolute;
+    left: -100%;
+    &--details {
+      width: 20rem;
+      height: 18rem;
+      background-color: $black;
+      position: absolute;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      top: 20%;
+      left: 50%;
+      transform: translateY(-50%);
+      transform: translateX(-50%);
+      padding: 2.3rem;
+      letter-spacing: 0.06rem;
+      line-height: 1.8;
+      &::-webkit-scrollbar {
+        width: 0.625rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $black;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $grey-500;
+      }
+      & img {
+        width: 100%;
+        height: 80%;
+      }
+      & h3 {
+        font-size: $font-lg;
+        color: $white;
+        font-family: "grotesk";
+      }
+      & h5 {
+        font-size: $font-smx;
+        color: $white;
+        font-family: "grotesk";
+        font-weight: 400;
+      }
+      & p {
+        font-family: "Montserrat";
+        font-size: $font-sm;
+        color: $grey;
+      }
+    }
+
+    & .closevideo {
+      position: absolute;
+      background-color: $black;
+      width: 8rem;
+      height: 2rem;
+      color: $white;
+      font-family: "grotesk";
+      right: 8%;
+      top: 8%;
+      border: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: $grey;
+      }
+    }
+  }
+
+  &__mikey {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      @include img-fit-cover;
+    }
+  }
+
+  &__chunk {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      @include img-fit-cover;
+    }
+  }
+
+  &__data {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      @include img-fit-cover;
+    }
+  }
+
+  &__mouth {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      @include img-fit-cover;
+    }
+  }
+
+  &__desc {
+    z-index: 3;
+    position: absolute;
+    bottom: -20%;
+    left: 10%;
+
+    & h3 {
+      font-size: $font-lg;
+      color: $white;
+      font-family: "grotesk";
+      margin-bottom: 0.4rem;
+    }
+
+    & button {
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      color: $white;
+      font-family: "grotesk";
+      cursor: pointer;
+      gap: 0.3rem;
+      width: 9rem;
+      & img {
+        width: 20%;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+}
+.gooniescoins {
+  @include hw-full;
+  @include flex-center;
+  position: relative;
+  background-color: $black;
+  z-index: 2;
+
+  &__title {
+    font-size: $font-lg;
+    color: $white;
+    font-family: "grotesk";
+    letter-spacing: 0.2rem;
+    z-index: 5;
+    opacity: 0;
+  }
+
+  &__stone {
+    width: 15%;
+    position: absolute;
+    transform: rotate(50deg);
+    opacity: 0;
+  }
+
+  &__coin--topleft {
+    width: 10%;
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    opacity: 0;
+  }
+
+  &__coin--bottomleft {
+    width: 10%;
+    position: absolute;
+    top: -15%;
+    left: 32%;
+  }
+
+  &__coin--topright {
+    width: 15%;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    opacity: 0;
+  }
+
+  &__coin--bottomright {
+    width: 10%;
+    position: absolute;
+    top: 10%;
+    left: 70%;
+  }
+}
+.credits {
+  @include hw-full;
+  background-color: $black;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 2fr);
+  border-top: 0.1px groove $grey-500;
+  border-bottom: 0.1px groove $grey-500;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 2fr);
+  }
+  &__desc {
+    font-family: "grotesk";
+    color: $white;
+    z-index: 2;
+    position: absolute;
+    bottom: 10%;
+    left: 2rem;
+
+    & h5 {
+      font-family: "grotesk";
+      font-size: $font-nm;
+      font-weight: 400;
+    }
+
+    & p {
+      font-size: $font-smx;
+      font-weight: 400;
+    }
+  }
+
+  &__all {
+    box-shadow: 0 0 0.5px 0.2px white;
+    @include flex-center;
+    color: $white;
+    position: relative;
+    overflow: hidden;
+
+    &--overflow {
+      position: relative;
+      overflow: hidden;
+      padding: 0.2rem;
+    }
+
+    &--title {
+      font-size: $font-xl;
+      font-family: "grotesk";
+    }
+
+    &--image {
+      width: 100%;
+      position: absolute;
+      top: 0;
+    }
+
+    &--imagedist {
+      width: 25%;
+    }
+
+    &--imagemusic {
+      width: 80%;
+      position: absolute;
+      top: 10%;
+    }
+  }
+
+  &__production {
+    grid-column: 3/5;
+    position: relative;
+    &--image {
+      width: 50%;
+      position: absolute;
+    }
+    @media (max-width: 768px) {
+      grid-column: 1/2;
+    }
+  }
+  &__boxoffice {
+    @media (max-width: 768px) {
+      grid-column: 1/3;
+    }
+  }
+}
+.theater {
+  @include hw-full;
+  position: relative;
+  overflow: hidden;
+  background-color: $black;
+  @media (max-width: 768px) {
+    height: 60%;
+  }
+  &__skull {
+    @include absolute-center(left);
+    opacity: 0.1;
+    top: 70%;
+    width: 10%;
+    color: $grey;
+  }
+
+  &__audience {
+    position: absolute;
+    width: 100%;
+    bottom: -50%;
+  }
+}
+.gallery {
+  @include hw-full;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  background-color: $black;
+  position: relative;
+  gap: 0.3rem;
+
+  &__details {
+    @include absolute-center(left);
+    top: 40%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    cursor: pointer;
+    gap: 0.5rem;
+
+    &--title {
+      color: $white;
+      font-size: $font-lg-2;
+      font-family: "grotesk";
+    }
+
+    &--button {
+      border: 0;
+      padding: 0.3rem;
+      margin: 0 1rem;
+      background-color: $black;
+      color: $white;
+      font-family: "grotesk";
+      cursor: pointer;
+    }
+  }
+
+  &__share--button {
+    @include absolute-center(left);
+    bottom: 0%;
+    color: $white;
+    background-color: $black;
+    padding: 0.5rem 1rem;
+    font-family: "grotesk";
+    font-size: $font-smx;
+    text-decoration: none;
+    z-index: 2;
+  }
+
+  &__cross--button {
+    background-color: $black;
+    width: 3rem;
+    height: 3rem;
+    align-content: center;
+    padding-bottom: 2rem;
+    border: 0;
+    color: $white;
+    @include absolute-center(left);
+    border-radius: 50%;
+    top: 40%;
+    display: none;
+    opacity: 0;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    &--p {
+      font-size: $font-lg-2;
+    }
+  }
+
+  &__image {
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+
+  &__one {
+    grid-column: 1/4;
+    grid-row: 1/3;
+    transform: scale(0.2, 0.2);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b90fa2ab90c75d6f44a8e_the-goonies.jpg");
+  }
+
+  &__two {
+    grid-column: 4/5;
+    grid-row: 1/3;
+    transform: scale(0.4, 0.4) translateX(-35rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b90fa2b24d9ce77182467_goonies-tongue.jpg");
+  }
+
+  &__three {
+    grid-column: 5/6;
+    grid-row: 1/2;
+    transform: translateY(8.75rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b90fa0369a41028d539d0_the-goonies-cave.jpg");
+  }
+
+  &__four {
+    grid-column: 6/9;
+    grid-row: 1/3;
+    transform: scale(0.7, 0.7) translateY(12rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b9359641a587dc58ecb84_Goonies-Captain-Chunk.jpg");
+  }
+
+  &__five {
+    grid-column: 5/6;
+    grid-row: 2/3;
+    transform: scale(0.8, 0.8) translate(-5.5rem, -3.5rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d23a6ca059b4b229b659eb7_rocks-min.jpg");
+  }
+
+  &__six {
+    grid-column: 1/3;
+    grid-row: 3/5;
+    transform: scale(0.6, 0.6) translateX(24.5rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b90fa641a584b528ebed3_20141201-125621.jpg");
+  }
+
+  &__seven {
+    grid-column: 3/6;
+    grid-row: 3/8;
+    transform: scale(0.5, 0.5);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b90fa641a58fc3a8ebed4_goonies_lead.jpg");
+  }
+
+  &__eight {
+    grid-column: 6/9;
+    grid-row: 3/7;
+    transform: scale(0.4, 0.4);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b93722b24d9f866182ebb_goonies4.jpg");
+  }
+
+  &__nine {
+    grid-column: 1/3;
+    grid-row: 5/8;
+    transform: scale(0.2, 0.2);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b938f2ab90c1171f45523_image.jpg");
+  }
+
+  &__ten {
+    grid-column: 6/7;
+    grid-row: 7/8;
+    transform: translateY(-5rem);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0b94f92ddabc77c98253ce_josh-brolin-recounts-seeing-the-pirate-ship-in-the-goonies-for-the-first-time-and-how-he-ruined-the-first-take-social.jpg");
+  }
+
+  &__eleven {
+    grid-column: 7/9;
+    grid-row: 7/8;
+    transform: scale(0.6, 0.6);
+    background-image: url("https://uploads-ssl.webflow.com/5cff83ac2044e22cb8cf2f11/5d0bcacdefd94731f3b15073_The-Goonies-Lost-Treasure-and-Maritime-Law-720x340.jpg");
+  }
+}
+.footer {
+  @include hw-full;
+  background-color: $black;
+  position: relative;
+
+  &__drawline {
+    background-color: $white;
+    width: 12rem;
+    height: 0.1rem;
+    top: 38%;
+    @include absolute-center(right);
+    transform: rotate(90deg);
+    transform-origin: right;
+  }
+
+  &__experience {
+    font-family: "Montserrat";
+    margin-bottom: 1rem;
+    color: $white;
+    @include absolute-center(left);
+    top: 40%;
+    opacity: 0;
+  }
+
+  &__title {
+    font-family: "grotesk";
+    font-size: $font-lg-4;
+    font-weight: 500;
+    color: $white;
+    @include absolute-center(left);
+    top: 80%;
+    @media (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__backtop--button {
+    font-family: "grotesk";
+    background-color: $black;
+    border: 0;
+    color: $white;
+    margin-top: 1rem;
+    @include absolute-center(left);
+    top: 80%;
+    cursor: pointer;
+  }
+
+  &__author {
+    font-family: "grotesk";
+    @include absolute-center(left);
+    bottom: 10%;
+    color: $white;
+    font-size: $font-sm;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+      font-size: $font-sm;
+    }
+  }
+}
